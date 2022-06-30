@@ -1,11 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const retrieveReviews = require('../middlewares/retrieveReviews.js');
 
 // GET /reviews/
 // Returns a list of reviews for a particular product. This list does not include any reported reviews.
 // Response Status: 200 OK
-router.get('/', (req, res) => {
-  res.status(200).send('get reviews');
+router.get('/', async (req, res) => {
+  try {
+    let productId = req.query.product_id;
+    console.log(productId);
+    let result = await retrieveReviews(productId);
+    console.log('result: ', result);
+    res.status(200).json(result);
+  } catch (err) {
+    console.log(err);
+  }
+  
 });
 
 

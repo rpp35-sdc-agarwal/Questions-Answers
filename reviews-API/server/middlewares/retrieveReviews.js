@@ -11,7 +11,8 @@ const retrieveReviews = async (productId) => {
 
     let result = allReviews.rows.map(async (review) => {
       review.date = formatDate(Number(review.date));
-      review.photos = await retrievePhotos(review.id);
+      review.photos = await retrievePhotos(review.review_id);
+      delete review.product_id;
       return review;
     })
     
@@ -22,3 +23,4 @@ const retrieveReviews = async (productId) => {
 }
 
 module.exports = retrieveReviews;
+

@@ -9,9 +9,13 @@ router.get('/', async (req, res) => {
   try {
     let productId = req.query.product_id;
     console.log(productId);
-    let result = await retrieveReviews(productId);
-    console.log('result: ', result);
-    res.status(200).json(result);
+    let results = await retrieveReviews(productId);
+    // console.log('result: ', results);
+    let response = {
+      product_id: productId,
+      results: [...results]
+    }
+    res.status(200).json(response);
   } catch (err) {
     console.log(err);
   }

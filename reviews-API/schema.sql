@@ -1,7 +1,7 @@
 CREATE DATABASE reviews;
 
 CREATE TABLE "reviews" (
-  "id" int PRIMARY KEY,
+  "review_id" int PRIMARY KEY,
   "product_id" int NOT NULL,
   "rating" int,
   "date" numeric,

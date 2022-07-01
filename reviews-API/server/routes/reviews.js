@@ -8,7 +8,7 @@ const retrieveReviews = require('../middlewares/retrieveReviews.js');
 router.get('/', async (req, res) => {
   try {
     let productId = req.query.product_id;
-    console.log(productId);
+    // console.log(productId);
     let results = await retrieveReviews(productId);
     // console.log('result: ', results);
     let response = {

@@ -19,7 +19,7 @@ app.use('/reviews', reviews);
 // Reponse Status: 204 NO CONTENT
 
 app.get('/', function (req, res) {
-  res.status(200).send('Hello World')
+  res.sendStatus(200);
 })
 
 

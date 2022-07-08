@@ -22,7 +22,7 @@ CREATE TABLE "photos" (
 );
 
 CREATE TABLE "characteristics_reviews" (
-  "id" int PRIMARY KEY,
+  "id" serial PRIMARY KEY,
   "characteristic_id" int,
   "review_id" int,
   "value" int

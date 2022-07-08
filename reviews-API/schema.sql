@@ -1,18 +1,18 @@
 CREATE DATABASE reviews;
 
 CREATE TABLE "reviews" (
-  "review_id" int PRIMARY KEY,
+  "review_id" serial PRIMARY KEY,
   "product_id" int NOT NULL,
   "rating" int,
   "date" numeric,
   "summary" varchar,
   "body" varchar,
-  "recommend" boolean,
-  "reported" boolean,
+  "recommend" boolean DEFAULT false,
+  "reported" boolean  DEFAULT false,
   "reviewer_name" varchar,
   "reviewer_email" varchar,
-  "response" varchar,
-  "helpfulness" int
+  "response" varchar DEFAULT null,
+  "helpfulness" int DEFAULT 0,
 );
 
 CREATE TABLE "photos" (

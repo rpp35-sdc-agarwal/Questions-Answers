@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+// const bodyParser = require('body-parser');
 const retrieveReviews = require('../middlewares/retrieveReviews.js');
+const submitReview = require('../middlewares/submitReview.js');
 
 // GET /reviews/
 // Returns a list of reviews for a particular product. This list does not include any reported reviews.
@@ -18,16 +20,24 @@ router.get('/', async (req, res) => {
     res.status(200).json(response);
   } catch (err) {
     console.log(err);
+    res.status(500).send(err);
   }
-  
 });
 
 
 // POST /reviews
 // Adds a review for the given product.
 // Reponse Status: 201 CREATED
-router.post('/', (req, res) => {
-  res.status(201).send('post reviews');
+router.post('/', async (req, res) => {
+  try {
+    console.log('body', req.body);
+    let result = await submitReview(req.body);
+    console.log('result: ', result);
+    res.status(201).send('review posted');
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
 });
 
 module.exports = router;

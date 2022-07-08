@@ -9,7 +9,7 @@ const retrievePhotos = async (reviewId) => {
       delete photo.review_id;
     })
   }
-  console.log('photos: ', result);
+  // console.log('photos: ', result);
   return result;
 }
 

@@ -16,7 +16,7 @@ CREATE TABLE "reviews" (
 );
 
 CREATE TABLE "photos" (
-  "id" int PRIMARY KEY,
+  "id" serial PRIMARY KEY,
   "review_id" int,
   "url" varchar
 );

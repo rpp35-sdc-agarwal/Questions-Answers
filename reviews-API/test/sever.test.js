@@ -33,3 +33,7 @@ describe('GET request', () => {
     });
   })
 })
+
+describe('POST request', () => {
+
+})

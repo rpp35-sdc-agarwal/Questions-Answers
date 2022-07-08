@@ -1,6 +1,6 @@
 const db = require('../../database/index.js');
 
-const submitCharacteristics = (scores) => {
+const submitCharacteristics = (reviewId, scores) => {
   
 }
 

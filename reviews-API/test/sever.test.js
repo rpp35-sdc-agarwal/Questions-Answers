@@ -78,10 +78,27 @@ describe('POST request', () => {
     try {
       let reviewCount = await db.query (`SELECT COUNT (*) FROM reviews WHERE review_id=${reviewId}`)
       expect(reviewCount).to.not.equal(0);
-      clearReviewData(reviewId);
     } catch (err) {
       console.log(err);
     }
   })
   
+  it ('photos should be in the databse', async () => {
+    try {
+      let photosCount = await db.query (`SELECT COUNT (*) FROM photos WHERE review_id=${reviewId}`)
+      expect(photosCount).to.not.equal(0);
+    } catch (err) {
+      console.log(err);
+    }
+  })
+  
+  it('characteristics should be in the database', async () => {
+    try {
+      let characteristicsCount = await db.query (`SELECT COUNT (*) FROM photos WHERE review_id=${reviewId}`)
+      expect(characteristicsCount).to.not.equal(0);
+      clearReviewData(reviewId);
+    } catch (err) {
+      console.log(err);
+    }
+  })
 })

@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
 // Reponse Status: 201 CREATED
 router.post('/', async (req, res) => {
   try {
-    console.log('body', req.body);
+    // console.log('body', req.body);
     let result = await submitReview(req.body);
     console.log('result: ', result);
     res.status(201).send(JSON.stringify(result));

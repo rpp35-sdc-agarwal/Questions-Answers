@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const db = require('../database/index.js');
 const reviews = require('./routes/reviews.js');
+const generateMeta = require('./middlewares/generateMeta.js');
 
 app.use(express.json()); // for using req.body
 app.use(bodyParser.json());
@@ -12,7 +13,16 @@ app.use('/reviews', reviews);
 // GET /reviews/meta
 // Returns review metadata for a given product
 // Response Status: 200 OK
-app.get('/reviews/meta', (req, res) => {
+app.get('/reviews/meta', async (req, res) => {
+  try {
+    // console.log(typeof req.body.product_id);
+    let productId = req.body.product_id;
+    let metaData = await generateMeta(productId);
+    res.status(200).json(metaData);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
   
 })
 

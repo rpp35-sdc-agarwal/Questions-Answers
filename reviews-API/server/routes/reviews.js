@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
     console.log('body', req.body);
     let result = await submitReview(req.body);
     console.log('result: ', result);
-    res.status(201).send('review posted');
+    res.status(201).send(JSON.stringify(result));
   } catch (err) {
     console.log(err);
     res.status(500).send(err);

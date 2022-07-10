@@ -18,7 +18,7 @@ describe('Review Server', () => {
   })
 })
 
-describe('GET request', () => {
+describe('GET reviews/ request', () => {
   it('should respond with 200 status code upon success for a GET /reviews request', () => {
       request(url)
       .get('/reviews/?product_id=1')
@@ -42,7 +42,7 @@ describe('GET request', () => {
   })
 })
 
-describe('POST request', () => {
+describe('POST reviews/ request', () => {
   let body = {
     "product_id": 2,
     "rating": 5,
@@ -101,4 +101,29 @@ describe('POST request', () => {
       console.log(err);
     }
   })
+})
+
+describe('GET reviews/meta request', () => {
+  let body = {
+    product_id: 4
+  }
+  it('should respond with 200 status code upon success for a GET /reviews/meta request', () => {
+      request(url)
+      .get('/reviews/meta')
+      .send(body)
+      .then((res) => {
+        expect(res.statusCode).to.equal(200);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  })
+})
+
+describe('PUT reviews/:review_id/helpful request', () => {
+  
+})
+
+describe('PUT reviews/:review_id/report', () => {
+  
 })

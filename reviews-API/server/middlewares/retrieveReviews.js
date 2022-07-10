@@ -9,14 +9,18 @@ const retrieveReviews = async (productId) => {
   try {
     let allReviews = await db.query(`SELECT * FROM reviews WHERE product_id=${productId}`);
 
-    let result = allReviews.rows.map(async (review) => {
-      review.date = formatDate(Number(review.date));
-      review.photos = await retrievePhotos(review.review_id);
-      delete review.product_id;
-      return review;
+    let result = await Promise.all(allReviews.rows.map(async (review) => {
+        review.date = formatDate(Number(review.date));
+        review.photos = await retrievePhotos(review.review_id);
+        delete review.product_id;
+        return review;
+    }))
+    
+    let filteredResult = result.filter((review) => {
+      return !review.reported;
     })
     
-    return await Promise.all(result);
+    return filteredResult;
   } catch (err) {
     console.log(err);
   }

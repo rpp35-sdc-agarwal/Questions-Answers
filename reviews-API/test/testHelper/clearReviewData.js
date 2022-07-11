@@ -6,7 +6,7 @@ const alterSequence = require('./alterSequence.js');
 const clearReviewData = (reviewId) => {
   getLastId('reviews', 'review_id')
     .then((reviewId) => {
-      console.log('cleared reviewId: ',reviewId);
+      console.log('cleared testing review_id: ',reviewId);
       deleteTestData('photos', 'review_id', reviewId)
         .then(() => {
           deleteTestData('characteristics_reviews', 'review_id', reviewId)
@@ -15,7 +15,7 @@ const clearReviewData = (reviewId) => {
               .then(() => {
                 getLastId('photos', 'id')
                   .then((photoId) => {
-                    console.log('cleared photoId: ', photoId);
+                    console.log('cleared testing photo id: ', photoId);
                     alterSequence('review_serial', reviewId);
                     alterSequence('photo_serial', photoId + 1)
                   })
@@ -25,7 +25,7 @@ const clearReviewData = (reviewId) => {
                   
                   getLastId('characteristics_reviews', 'id')
                   .then((characteristicId) => {
-                    console.log('cleared characteristicId: ', characteristicId)
+                    console.log('cleared testing characteristic_id: ', characteristicId)
                     alterSequence('characteristics_serial', characteristicId + 1);
                   })
                   .catch((err) => {

@@ -5,6 +5,7 @@ const db = require('../database/index.js');
 const reviews = require('./routes/reviews.js');
 const generateMeta = require('./middlewares/generateMeta.js');
 const markHelpful = require('./middlewares/markHelpful.js');
+const reportReview = require('./middlewares/reportReview.js');
 
 app.use(express.json()); // for using req.body
 app.use(bodyParser.json());
@@ -25,7 +26,7 @@ app.get('/reviews/meta', async (req, res) => {
     res.status(500).send(err);
   }
   
-})
+});
 
 // PUT /reviews/:review_id/helpful
 // Updates a review to show it was found helpful.
@@ -39,20 +40,25 @@ app.put('/reviews/:review_id/helpful', async (req, res) => {
     console.log(err);
     res.status(500).send(err);
   }
-})
+});
 
 // PUT /reviews/:review_id/report
 // Updates a review to show it was reported. Note, this action does not delete the review, but the review will not be returned in the above GET request.
 // Reponse Status: 204 NO CONTENT
-app.put('/reviews/:review_id/report', (req, res) => {
-  
-})
+app.put('/reviews/:review_id/report', async (req, res) => {
+  try {
+    let reviewId = req.params.review_id;
+    await reportReview(reviewId);
+    res.status(204).send('Review was reported');
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+});
+
 
 app.get('/', (req, res) => {
   res.sendStatus(200);
-})
-
-
-
+});
 
 module.exports = app;

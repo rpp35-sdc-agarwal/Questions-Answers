@@ -34,10 +34,3 @@ const retrieveCharacteristics = async (productId) => {
 }
   
 module.exports = retrieveCharacteristics;
-
-/*
-SELECT a.characteristic_id, a.value, c.name AS characteristics
-FROM characteristics_reviews a
-LEFT JOIN characteristics c ON a.characteristic_id=c.id
-LEFT JOIN reviews r ON r.review_id=a.review_id WHERE r.product_id=${productId};
-*/

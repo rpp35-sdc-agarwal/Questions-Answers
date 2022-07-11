@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const db = require('../database/index.js');
 const reviews = require('./routes/reviews.js');
 const generateMeta = require('./middlewares/generateMeta.js');
+const markHelpful = require('./middlewares/markHelpful.js');
 
 app.use(express.json()); // for using req.body
 app.use(bodyParser.json());
@@ -29,8 +30,15 @@ app.get('/reviews/meta', async (req, res) => {
 // PUT /reviews/:review_id/helpful
 // Updates a review to show it was found helpful.
 // Reponse Status: 204 NO CONTENT
-app.put('/reviews/:review_id/helpful', (req, res) => {
-  
+app.put('/reviews/:review_id/helpful', async (req, res) => {
+  try {
+    let reviewId = req.params.review_id;
+    await markHelpful(reviewId);
+    res.status(204).send('Review was marked as helpful');
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
 })
 
 // PUT /reviews/:review_id/report

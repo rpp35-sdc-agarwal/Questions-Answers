@@ -6,7 +6,6 @@ const app = require('../server/index.js');
 const request = require('supertest');
 const db = require('.././database/index.js');
 const clearReviewData = require('./testHelper/clearReviewData.js');
-const retrieveReviews = require('../server/middlewares/retrieveReviews.js');
 
 const url = 'http://localhost:8000';
 

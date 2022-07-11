@@ -6,7 +6,6 @@ const markHelpful = async (reviewId) => {
   } catch (err) {
     console.log(err);
   }
-  
 }
 
 module.exports = markHelpful;

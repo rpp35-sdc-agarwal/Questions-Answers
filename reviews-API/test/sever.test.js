@@ -6,6 +6,8 @@ const app = require('../server/index.js');
 const request = require('supertest');
 const db = require('.././database/index.js');
 const clearReviewData = require('./testHelper/clearReviewData.js');
+const restoreHelpful = require('./testHelper/restoreHelpful.js');
+const retrieveHelpful = require('./testHelper/retrieveHelpful.js');
 
 const url = 'http://localhost:8000';
 
@@ -120,7 +122,35 @@ describe('GET reviews/meta request', () => {
 })
 
 describe('PUT reviews/:review_id/helpful request', () => {
+  let reviewId = 1;
+  let originalCount, updatedCount;
   
+  it('should respond with 204 status code upon success for a PUT reviews/:review_id/helpful request', async () => {
+    try {
+      originalCount = await retrieveHelpful(reviewId);
+      console.log('original: ', originalCount);
+      
+      let response = await request(url)
+      .put(`/reviews/${reviewId}/helpful`)
+      
+      expect(response.statusCode).to.equal(204)
+      
+      updatedCount =  await retrieveHelpful(reviewId);
+      console.log('updated: ', updatedCount);
+    } catch (err) {
+      console.log(err);
+    }
+  })
+  
+  it('should increment helpfulness by 1', async () => {
+    try {
+      let diff = updatedCount - originalCount;
+      expect(diff).to.equal(1);
+      await restoreHelpful(reviewId);
+    } catch (err) {
+      console.log(err);
+    }
+  })
 })
 
 describe('PUT reviews/:review_id/report', () => {

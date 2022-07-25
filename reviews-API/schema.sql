@@ -12,7 +12,7 @@ CREATE TABLE "reviews" (
   "reviewer_name" varchar,
   "reviewer_email" varchar,
   "response" varchar DEFAULT null,
-  "helpfulness" int DEFAULT 0,
+  "helpfulness" int DEFAULT 0
 );
 
 CREATE TABLE "photos" (
@@ -34,8 +34,8 @@ CREATE TABLE "characteristics" (
   "name" varchar
 );
 
-ALTER TABLE "photos" ADD FOREIGN KEY ("review_id") REFERENCES "reviews" ("id");
+ALTER TABLE "photos" ADD FOREIGN KEY ("review_id") REFERENCES "reviews" ("review_id");
 
-ALTER TABLE "characteristics_reviews" ADD FOREIGN KEY ("review_id") REFERENCES "reviews" ("id");
+ALTER TABLE "characteristics_reviews" ADD FOREIGN KEY ("review_id") REFERENCES "reviews" ("review_id");
 
 ALTER TABLE "characteristics_reviews"  ADD FOREIGN KEY ("characteristic_id") REFERENCES "characteristics" ("id");

@@ -1,2 +1,4 @@
 raw-data/
 .nyc_output
+newrelic_agent.log
+newrelic.js

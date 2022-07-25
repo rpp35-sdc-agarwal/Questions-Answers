@@ -11,6 +11,7 @@ const generateMeta = async (productId) => {
     // ratings
     let ratings = await retrieveRatings(productId);
     result.ratings = ratings;
+    
     // recommended
     let recommended = await countRecommend(productId);
     result.recommended = recommended
@@ -18,7 +19,8 @@ const generateMeta = async (productId) => {
     // characteristics
     let characteristics = await retrieveCharacteristics(productId);
     result.characteristics = characteristics;
-    console.log('meta result: ', result);
+    // console.log('meta result: ', result);
+    return result;
   } catch (err) {
     console.log(err);
   }

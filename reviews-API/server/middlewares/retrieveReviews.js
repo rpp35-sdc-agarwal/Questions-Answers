@@ -7,7 +7,7 @@ const formatDate = (dateNum) => {
 }
 const retrieveReviews = async (productId) => {
   try {
-    let allReviews = await db.query(`SELECT * FROM reviews WHERE product_id=${productId}`);
+    let allReviews = await db.query(`SELECT * FROM reviews WHERE product_id=${productId} AND reported=false`);
 
     let result = await Promise.all(allReviews.rows.map(async (review) => {
         review.date = formatDate(Number(review.date));
@@ -16,11 +16,11 @@ const retrieveReviews = async (productId) => {
         return review;
     }))
     
-    let filteredResult = result.filter((review) => {
-      return !review.reported;
-    })
+    // let filteredResult = result.filter((review) => {
+    //   return !review.reported;
+    // })
     
-    return filteredResult;
+    return result;
   } catch (err) {
     console.log(err);
   }

@@ -9,6 +9,7 @@ const countRecommend = async (productId) => {
   let falseResult = await db.query(`SELECT COUNT (*) FROM reviews WHERE product_id=${productId} AND recommend=false`);
   let no = falseResult.rows[0].count;
   count.false = no;
+  // console.log('count: ', count);
   return count;
 }
 

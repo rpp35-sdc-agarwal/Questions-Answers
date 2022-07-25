@@ -6,6 +6,7 @@ const reviews = require('./routes/reviews.js');
 const generateMeta = require('./middlewares/generateMeta.js');
 const markHelpful = require('./middlewares/markHelpful.js');
 const reportReview = require('./middlewares/reportReview.js');
+require('newrelic');
 
 app.use(express.json()); // for using req.body
 app.use(bodyParser.json());
@@ -16,16 +17,25 @@ app.use('/reviews', reviews);
 // Returns review metadata for a given product
 // Response Status: 200 OK
 app.get('/reviews/meta', async (req, res) => {
+  // let productId = req.query.product_id;
+  // generateMeta(productId)
+  //   .then((metaData) => {
+  //     console.log('metaData: ', metaData)
+  //     res.status(200).json(metaData);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   })
   try {
     // console.log(typeof req.body.product_id);
-    let productId = req.body.product_id;
+    let productId = req.query.product_id;
     let metaData = await generateMeta(productId);
+    console.log('metaData: ', metaData)
     res.status(200).json(metaData);
   } catch (err) {
     console.log(err);
     res.status(500).send(err);
   }
-  
 });
 
 // PUT /reviews/:review_id/helpful

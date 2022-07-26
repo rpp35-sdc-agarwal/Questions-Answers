@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 const bodyParser = require('body-parser');
 const db = require('../database/index.js');
 const reviews = require('./routes/reviews.js');
@@ -65,6 +66,21 @@ app.put('/reviews/:review_id/report', async (req, res) => {
     res.status(500).send(err);
   }
 });
+
+app.get('/loaderio-4dd45d4e23b85d1dcc12069b5dbd199a.txt', (req, res) => {
+  let options = {
+    root: path.join(__dirname)
+  };
+  console.log(options);
+  let fileName = 'loaderio-4dd45d4e23b85d1dcc12069b5dbd199a.txt'
+  res.sendFile(fileName, options, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('Sent: ', fileName);
+    }
+  })
+})
 
 
 app.get('/', (req, res) => {

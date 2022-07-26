@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     console.log('result: ', results);
     let response = {
       product_id: productId,
-      results: [...results]
+      results: results
     }
     res.status(200).json(response);
   } catch (err) {

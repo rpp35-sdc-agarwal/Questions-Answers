@@ -1,0 +1,5 @@
+Host database-ec2
+  HostName 54.218.163.60
+  User ubuntu
+  IdentityFile  ~/ssh/database-ec2.cer
+  IdentitiesOnly yes

@@ -1,4 +1,8 @@
 const express = require('express');
+const redis = require('redis');
+// const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const client = redis.createClient();
+
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -9,30 +13,42 @@ const markHelpful = require('./middlewares/markHelpful.js');
 const reportReview = require('./middlewares/reportReview.js');
 require('newrelic');
 
+
 app.use(express.json()); // for using req.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use('/reviews', reviews);
 
+
+client.connect()
+  .then(() => {
+    client.on("error", (error) => {
+      console.error(error);
+     });
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
 // GET /reviews/meta
 // Returns review metadata for a given product
 // Response Status: 200 OK
 app.get('/reviews/meta', async (req, res) => {
-  // let productId = req.query.product_id;
-  // generateMeta(productId)
-  //   .then((metaData) => {
-  //     console.log('metaData: ', metaData)
-  //     res.status(200).json(metaData);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
   try {
     // console.log(typeof req.body.product_id);
     let productId = req.query.product_id;
-    let metaData = await generateMeta(productId);
-    console.log('metaData: ', metaData)
-    res.status(200).json(metaData);
+    
+    let data = await client.get(productId);
+    
+    if (data) {
+      console.log('cached data: ', data);
+      return res.status(200).json(JSON.parse(data));
+    } else {
+      let metaData = await generateMeta(productId);
+      client.SETEX(productId, 3600, JSON.stringify(metaData));
+      console.log('metaData: ', metaData)
+      res.status(200).json(metaData);
+    }
   } catch (err) {
     console.log(err);
     res.status(500).send(err);

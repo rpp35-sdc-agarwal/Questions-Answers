@@ -1,7 +1,9 @@
 const express = require('express');
 const redis = require('redis');
-// const REDIS_PORT = process.env.REDIS_PORT || 6379;
-const client = redis.createClient();
+const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const client = redis.createClient({
+  url: 'redis://ec2-35-92-16-180.us-west-2.compute.amazonaws.com:6379'
+});
 
 const app = express();
 const path = require('path');
@@ -41,7 +43,7 @@ app.get('/reviews/meta', async (req, res) => {
     let data = await client.get(productId);
     
     if (data) {
-      console.log('cached data: ', data);
+      console.log('cached data: ', JSON.parse(data));
       return res.status(200).json(JSON.parse(data));
     } else {
       let metaData = await generateMeta(productId);

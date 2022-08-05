@@ -103,12 +103,12 @@ app.put('/reviews/:review_id/report', async (req, res) => {
   }
 });
 
-app.get('/loaderio-4dd45d4e23b85d1dcc12069b5dbd199a.txt', (req, res) => {
+app.get('/loaderio-f4dcb507f8cf6fd121520ec3e4fe7322.txt', (req, res) => {
   let options = {
     root: path.join(__dirname)
   };
   console.log(options);
-  let fileName = 'loaderio-4dd45d4e23b85d1dcc12069b5dbd199a.txt'
+  let fileName = 'loaderio-f4dcb507f8cf6fd121520ec3e4fe7322.txt'
   res.sendFile(fileName, options, (err) => {
     if (err) {
       console.log(err);

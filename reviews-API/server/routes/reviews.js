@@ -5,8 +5,10 @@ const retrieveReviews = require('../middlewares/retrieveReviews.js');
 const submitReview = require('../middlewares/submitReview.js');
 const redis = require('redis');
 const client = redis.createClient({
-  url: 'redis://ec2-35-92-16-180.us-west-2.compute.amazonaws.com:6379'
+  url: 'redis://ec2-35-89-62-32.us-west-2.compute.amazonaws.com:6379'
 });
+
+// const client = redis.createClient();
 
 client.connect()
   .then(() => {

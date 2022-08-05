@@ -2,8 +2,10 @@ const express = require('express');
 const redis = require('redis');
 // const REDIS_PORT = process.env.REDIS_PORT || 6379;
 const client = redis.createClient({
-  url: 'redis://ec2-35-92-16-180.us-west-2.compute.amazonaws.com:6379'
+  url: 'redis://ec2-35-89-62-32.us-west-2.compute.amazonaws.com:6379'
 });
+
+// const client = redis.createClient();
 
 const app = express();
 const path = require('path');
@@ -13,7 +15,7 @@ const reviews = require('./routes/reviews.js');
 const generateMeta = require('./middlewares/generateMeta.js');
 const markHelpful = require('./middlewares/markHelpful.js');
 const reportReview = require('./middlewares/reportReview.js');
-require('newrelic');
+// require('newrelic');
 
 
 app.use(express.json()); // for using req.body
@@ -31,6 +33,22 @@ client.connect()
   .catch((err) => {
     console.log(err);
   })
+  
+// client.on('connect', () => {
+//   console.log('redis connected')
+// })
+
+// client.on('reconnecting', () => {
+//   console.log('redis reconnecting')
+// })
+
+// client.on("error", (error) => {
+//   console.log('redis error: ', error);
+// });
+
+// client.on('end', () => {
+//   console.log('redis ended')
+// })
 
 // GET /reviews/meta
 // Returns review metadata for a given product
